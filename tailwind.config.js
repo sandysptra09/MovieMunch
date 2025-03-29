@@ -13,12 +13,7 @@ module.exports = {
     "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
-    extend: {
-      fontFamily: {
-        heading: ["var(--font-oswald)"],
-        body: ["var(--font-poppins)"],
-      },
-    },
+    extend: {},
   },
   darkMode: "class",
   plugins: [heroui()]

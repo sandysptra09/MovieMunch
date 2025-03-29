@@ -5,12 +5,9 @@ import "./globals.css";
 // import providers 
 import { Providers } from "./providers";
 
-// import oswald (heading)
-const oswald = Oswald({
-  variable: "--font-oswald",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-});
+// import components
+import Navbar from "@/components/Navbar/Navbar";
+
 
 // import poppins (body Text)
 const poppins = Poppins({
@@ -31,9 +28,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${oswald.variable} ${poppins.variable} font-heading font-body antialiased`}>
+      <body className={poppins.className} style={{ backgroundColor: "black" }}>
         <Providers>
           <div className="">
+            {/* Navbar */}
+            <Navbar />
+
             {children}
           </div>
         </Providers>

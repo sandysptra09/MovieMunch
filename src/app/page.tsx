@@ -1,9 +1,11 @@
 'use client'
 
+import Homepage from "@/pages/Homepage";
 import React from "react";
 
+
 // import main component
-import Homepage from "@/Homepage";
+
 
 export default function Home() {
   return (

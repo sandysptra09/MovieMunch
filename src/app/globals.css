@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --font-heading: var(--font-oswald);
-  --font-body: var(--font-poppins);
+body {
+  background-color: #ffffff;
+  font-family: var(--font-poppins), sans-serif;
 }
