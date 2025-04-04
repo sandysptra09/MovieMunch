@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
 
 // import component from heroui
@@ -31,7 +31,20 @@ export const AcmeLogo = () => {
 
 export default function Navbar() {
 
+    // initial state for menu open and scroll
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 50);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     const menuItems = [
         {
@@ -53,7 +66,7 @@ export default function Navbar() {
     ];
 
     return (
-        <CustomNavbar onMenuOpenChange={setIsMenuOpen} className='bg-black text-white sm:p-2'>
+        <CustomNavbar onMenuOpenChange={setIsMenuOpen} className='text-white bg-black p-2'>
             <NavbarContent>
                 <NavbarMenuToggle
                     aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -66,26 +79,13 @@ export default function Navbar() {
             </NavbarContent>
 
             <NavbarContent className="hidden sm:flex gap-10 text-white" justify="center">
-                <NavbarItem>
-                    <Link className='text-sm text-white' href="/">
-                        Home
-                    </Link>
-                </NavbarItem>
-                <NavbarItem>
-                    <Link className='text-sm text-white' href="/tv-shows">
-                        Tv Shows
-                    </Link>
-                </NavbarItem>
-                <NavbarItem>
-                    <Link className='text-sm text-white' href="/movies">
-                        Movies
-                    </Link>
-                </NavbarItem>
-                <NavbarItem>
-                    <Link className='text-sm text-white' href="/upcoming">
-                        Upcoming
-                    </Link>
-                </NavbarItem>
+                {menuItems.map((item, index) => (
+                    <NavbarItem key={index}>
+                        <Link className='text-sm text-white hover:text-gray-300 transition-all duration-200' href={item.href}>
+                            {item.title}
+                        </Link>
+                    </NavbarItem>
+                ))}
             </NavbarContent>
             {/* <NavbarContent justify="end">
                 <NavbarItem className="">
@@ -94,11 +94,8 @@ export default function Navbar() {
             </NavbarContent> */}
             <NavbarMenu>
                 {menuItems.map((item, index) => (
-                    <NavbarMenuItem key={`${item}-${index}`}>
-                        <Link
-                            className="w-full text-sm text-black"
-                            href={item.href}
-                        >
+                    <NavbarMenuItem key={index}>
+                        <Link className="w-full text-sm text-black" href={item.href}>
                             {item.title}
                         </Link>
                     </NavbarMenuItem>
