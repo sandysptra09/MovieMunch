@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import Link from 'next/link';
 
 // import component from heroui
 import {
@@ -11,7 +12,6 @@ import {
     NavbarMenuToggle,
     NavbarMenu,
     NavbarMenuItem,
-    Link,
     Button,
     Input
 } from "@heroui/react";
@@ -34,20 +34,26 @@ export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const menuItems = [
-        "Profile",
-        "Dashboard",
-        "Activity",
-        "Analytics",
-        "System",
-        "Deployments",
-        "My Settings",
-        "Team Settings",
-        "Help & Feedback",
-        "Log Out",
+        {
+            title: "Home",
+            href: "/",
+        },
+        {
+            title: "Tv Shows",
+            href: "/tv-shows",
+        },
+        {
+            title: "Movies",
+            href: "/movies",
+        },
+        {
+            title: "Upcoming",
+            href: "/upcoming",
+        }
     ];
 
     return (
-        <CustomNavbar onMenuOpenChange={setIsMenuOpen} className='bg-black text-white'>
+        <CustomNavbar onMenuOpenChange={setIsMenuOpen} className='bg-black text-white sm:p-2'>
             <NavbarContent>
                 <NavbarMenuToggle
                     aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -61,22 +67,22 @@ export default function Navbar() {
 
             <NavbarContent className="hidden sm:flex gap-10 text-white" justify="center">
                 <NavbarItem>
-                    <Link className='text-sm text-white' href="#">
+                    <Link className='text-sm text-white' href="/">
                         Home
                     </Link>
                 </NavbarItem>
                 <NavbarItem>
-                    <Link className='text-sm text-white' aria-current="page" href="#">
+                    <Link className='text-sm text-white' href="/tv-shows">
                         Tv Shows
                     </Link>
                 </NavbarItem>
                 <NavbarItem>
-                    <Link className='text-sm text-white' href="#">
+                    <Link className='text-sm text-white' href="/movies">
                         Movies
                     </Link>
                 </NavbarItem>
                 <NavbarItem>
-                    <Link className='text-sm text-white' href="#">
+                    <Link className='text-sm text-white' href="/upcoming">
                         Upcoming
                     </Link>
                 </NavbarItem>
@@ -90,14 +96,10 @@ export default function Navbar() {
                 {menuItems.map((item, index) => (
                     <NavbarMenuItem key={`${item}-${index}`}>
                         <Link
-                            className="w-full"
-                            color={
-                                index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"
-                            }
-                            href="#"
-                            size="lg"
+                            className="w-full text-sm text-black"
+                            href={item.href}
                         >
-                            {item}
+                            {item.title}
                         </Link>
                     </NavbarMenuItem>
                 ))}
